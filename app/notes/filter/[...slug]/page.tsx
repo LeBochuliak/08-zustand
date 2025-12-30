@@ -28,7 +28,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${tagOG} notes`,
       description: `Notes by tag: ${tagOG}`,
-      url: `https://08-zustand-7agm4i0u1-lenas-projects-10306a6a.vercel.app/notes/filter/${tagOG}`,
+      url: `https://08-zustand-lenas-projects-10306a6a.vercel.app/notes/filter/${tagOG}`,
       siteName: 'Note Hub',
       images: [
         {
