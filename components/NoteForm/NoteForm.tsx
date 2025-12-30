@@ -70,23 +70,23 @@ export default function NoteForm() {
 
   const handleSubmit = async (formData: FormData) => {
     try {
-      setValues({
-        title: (formData.get('title') as string) ?? '',
-        content: (formData.get('content') as string) ?? '',
-        tag: (formData.get('tag') as NoteTag) ?? 'Todo',
-      });
-
-      await validationSchema.validate(values, { abortEarly: false });
-
       const id = crypto.randomUUID();
       const createdAt = new Date().toISOString();
       const updatedAt = new Date().toISOString();
+      const title = (formData.get('title') as string) ?? '';
+      const content = (formData.get('content') as string) ?? '';
+      const tag = (formData.get('tag') as NoteTag) ?? 'Todo';
+
+      await validationSchema.validate(
+        { title, content, tag },
+        { abortEarly: false }
+      );
 
       mutation.mutate({
         id,
-        title: values.title,
-        content: values.content,
-        tag: values.tag,
+        title,
+        content,
+        tag,
         createdAt,
         updatedAt,
       });
