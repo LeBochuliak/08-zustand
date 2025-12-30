@@ -20,8 +20,17 @@ export async function generateMetadata({
   params,
 }: NoteDetailsProps): Promise<Metadata> {
   const { slug } = await params;
-  const currentTag = slug[0] === 'all' ? undefined : slug[0];
-  const tagOG = slug[0] === 'all' ? 'all' : slug[0];
+  const tagOG = [
+    'all',
+    'Todo',
+    'Work',
+    'Meeting',
+    'Shopping',
+    'Personal',
+  ].includes(slug[0])
+    ? slug[0]
+    : 'all';
+
   return {
     title: `${tagOG} notes`,
     description: `Notes by tag: ${tagOG} `,
