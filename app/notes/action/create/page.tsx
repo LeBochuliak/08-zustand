@@ -4,10 +4,10 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Create Note',
-  description: 'Form component for creating a new not',
+  description: 'Form component for creating a new note',
   openGraph: {
     title: `Create Note`,
-    description: 'Form component for creating a new not',
+    description: 'Form component for creating a new note',
     url: `https://08-zustand-7agm4i0u1-lenas-projects-10306a6a.vercel.app/notes/action/create`,
     siteName: 'Note Hub',
     images: [

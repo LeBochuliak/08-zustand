@@ -21,13 +21,14 @@ export async function generateMetadata({
 }: NoteDetailsProps): Promise<Metadata> {
   const { slug } = await params;
   const currentTag = slug[0] === 'all' ? undefined : slug[0];
+  const tagOG = slug[0] === 'all' ? 'all' : slug[0];
   return {
-    title: `${currentTag} notes`,
-    description: `Notes by tag: ${currentTag} `,
+    title: `${tagOG} notes`,
+    description: `Notes by tag: ${tagOG} `,
     openGraph: {
-      title: `${currentTag} notes`,
-      description: 'Notes by tag: ${currentTag}',
-      url: `https://08-zustand-7agm4i0u1-lenas-projects-10306a6a.vercel.app/notes/filter/all`,
+      title: `${tagOG} notes`,
+      description: `Notes by tag: ${tagOG}`,
+      url: `https://08-zustand-7agm4i0u1-lenas-projects-10306a6a.vercel.app/notes/filter/${tagOG}`,
       siteName: 'Note Hub',
       images: [
         {
