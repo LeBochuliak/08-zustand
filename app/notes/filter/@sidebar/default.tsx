@@ -1,6 +1,8 @@
 import css from '../../../../components/SidebarNotes/SidebarNotes.module.css';
 import Link from 'next/link';
 
+const tags = ['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'];
+
 export default function SidebarNotes() {
   return (
     <ul className={css.menuList}>
@@ -9,31 +11,15 @@ export default function SidebarNotes() {
           All notes
         </Link>
       </li>
-      <li className={css.menuItem}>
-        <Link href={`/notes/filter/Work`} className={css.menuLink}>
-          Work
-        </Link>
-      </li>
-      <li className={css.menuItem}>
-        <Link href={`/notes/filter/Todo`} className={css.menuLink}>
-          Todo
-        </Link>
-      </li>
-      <li className={css.menuItem}>
-        <Link href={`/notes/filter/Personal`} className={css.menuLink}>
-          Personal
-        </Link>
-      </li>
-      <li className={css.menuItem}>
-        <Link href={`/notes/filter/Meeting`} className={css.menuLink}>
-          Meeting
-        </Link>
-      </li>
-      <li className={css.menuItem}>
-        <Link href={`/notes/filter/Shopping`} className={css.menuLink}>
-          Shopping
-        </Link>
-      </li>
+      {tags.map(tag => {
+        return (
+          <li key={tag} className={css.menuItem}>
+            <Link href={`/notes/filter/${tag}`} className={css.menuLink}>
+              {tag}
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 }

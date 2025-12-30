@@ -5,11 +5,41 @@ import {
 } from '@tanstack/react-query';
 import { fetchNotes } from '../../../../lib/api';
 import NotesClient from './Notes.client';
+import type { Metadata } from 'next';
 
 type NotesByCategoryProps = {
   params: Promise<{ slug: string[] }>;
   searchParams: Promise<{ page: number; search: string }>;
 };
+
+type NoteDetailsProps = {
+  params: Promise<{ slug: string[] }>;
+};
+
+export async function generateMetadata({
+  params,
+}: NoteDetailsProps): Promise<Metadata> {
+  const { slug } = await params;
+  const currentTag = slug[0] === 'all' ? undefined : slug[0];
+  return {
+    title: `${currentTag} notes`,
+    description: `Notes by tag: ${currentTag} `,
+    openGraph: {
+      title: `${currentTag} notes`,
+      description: 'Notes by tag: ${currentTag}',
+      url: `https://07-routing-nextjs-pi-livid.vercel.app/404`,
+      siteName: 'Note Hub',
+      images: [
+        {
+          url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+          width: 1200,
+          height: 630,
+          alt: 'Note Hub',
+        },
+      ],
+    },
+  };
+}
 
 export default async function NotesByCategory({
   params,

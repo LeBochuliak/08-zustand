@@ -12,6 +12,7 @@ import Pagination from '../../../../components/Pagination/Pagination';
 import NoteList from '../../../../components/NoteList/NoteList';
 import Modal from '../../../../components/Modal/Modal';
 import NoteForm from '../../../../components/NoteForm/NoteForm';
+import Link from 'next/link';
 
 interface NotesClientProps {
   tag: string | undefined;
@@ -52,13 +53,6 @@ export default function NotesClient({ tag }: NotesClientProps) {
     1000
   );
 
-  const handleNoteForm = () => {
-    setSearch('');
-    closeModal();
-    setPage(1);
-    setCurrentTag(undefined);
-  };
-
   return (
     <div className={css.app}>
       <Toaster position="top-center" />
@@ -71,14 +65,14 @@ export default function NotesClient({ tag }: NotesClientProps) {
             onChange={handlePagination}
           />
         )}
-        <button className={css.button} onClick={openModal}>
-          Create note +
-        </button>
+        <Link href={`/notes/action/create`} className={css.button}>
+          Craete note +
+        </Link>
       </div>
       {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
       {isModalOpen && (
         <Modal onClose={closeModal}>
-          <NoteForm onSuccess={handleNoteForm} />
+          <NoteForm />
         </Modal>
       )}
     </div>

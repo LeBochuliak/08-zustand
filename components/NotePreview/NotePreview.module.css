@@ -32,6 +32,9 @@
     line-height: 26px;
     color: #444;
     white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
+
 }
 
 .date {
