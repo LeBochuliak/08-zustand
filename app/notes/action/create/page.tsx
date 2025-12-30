@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Create Note`,
     description: 'Form component for creating a new not',
-    url: `https://07-routing-nextjs-pi-livid.vercel.app/`,
+    url: `https://08-zustand-7agm4i0u1-lenas-projects-10306a6a.vercel.app/notes/action/create`,
     siteName: 'Note Hub',
     images: [
       {

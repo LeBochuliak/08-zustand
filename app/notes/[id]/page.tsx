@@ -19,6 +19,20 @@ export async function generateMetadata({
   return {
     title: `Note: ${note.title}`,
     description: note.content.slice(0, 30),
+    openGraph: {
+      title: `Note: ${note.title}`,
+      description: note.content.slice(0, 30),
+      url: `https://08-zustand-7agm4i0u1-lenas-projects-10306a6a.vercel.app/notes/${note.id}`,
+      siteName: 'Note Hub',
+      images: [
+        {
+          url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+          width: 1200,
+          height: 630,
+          alt: 'Note Hub',
+        },
+      ],
+    },
   };
 }
 

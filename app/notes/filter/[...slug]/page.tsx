@@ -27,7 +27,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${currentTag} notes`,
       description: 'Notes by tag: ${currentTag}',
-      url: `https://07-routing-nextjs-pi-livid.vercel.app/404`,
+      url: `https://08-zustand-7agm4i0u1-lenas-projects-10306a6a.vercel.app/notes/filter/all`,
       siteName: 'Note Hub',
       images: [
         {
