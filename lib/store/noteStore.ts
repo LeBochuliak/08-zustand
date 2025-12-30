@@ -3,8 +3,8 @@ import type { NoteTag } from '../../types/note';
 import { persist } from 'zustand/middleware';
 
 interface NoteDraft {
-    title?: string;
-    content?: string;
+    title: string;
+    content: string;
     tag: NoteTag;
 }
 type NoteDraftStore = {

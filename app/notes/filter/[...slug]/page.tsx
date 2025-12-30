@@ -60,17 +60,17 @@ export default async function NotesByCategory({
   const { slug } = await params;
   const { page, search } = await searchParams;
 
-  const currentTag = slug[0] === 'all' ? undefined : slug[0];
+  const tag = slug[0] === 'all' ? undefined : slug[0];
 
   queryClient.prefetchQuery({
-    queryKey: ['notes', page, search, currentTag],
-    queryFn: () => fetchNotes({ page, search, currentTag }),
+    queryKey: ['notes', page, search, tag],
+    queryFn: () => fetchNotes({ page, search, tag }),
     staleTime: 1000 * 60,
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <NotesClient tag={currentTag} />
+      <NotesClient tag={tag} />
     </HydrationBoundary>
   );
 }

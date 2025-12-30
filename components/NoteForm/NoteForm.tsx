@@ -28,8 +28,14 @@ const validationSchema = Yup.object().shape({
     .required('Tag is required'),
 });
 
+type NoteFormValues = {
+  title: string;
+  content: string;
+  tag: NoteTag;
+};
+
 export default function NoteForm() {
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<NoteFormValues>({
     title: '',
     content: '',
     tag: 'Todo',
@@ -64,17 +70,28 @@ export default function NoteForm() {
 
   const handleSubmit = async (formData: FormData) => {
     try {
+      setValues({
+        title: (formData.get('title') as string) ?? '',
+        content: (formData.get('content') as string) ?? '',
+        tag: (formData.get('tag') as NoteTag) ?? 'Todo',
+      });
+
       await validationSchema.validate(values, { abortEarly: false });
 
       const id = crypto.randomUUID();
       const createdAt = new Date().toISOString();
       const updatedAt = new Date().toISOString();
-      const title = formData.get('title') as string;
-      const content = formData.get('content') as string;
-      const tag = formData.get('tag') as NoteTag;
 
-      mutation.mutate({ id, title, content, tag, createdAt, updatedAt });
-      router.push('/notes/filter/all');
+      mutation.mutate({
+        id,
+        title: values.title,
+        content: values.content,
+        tag: values.tag,
+        createdAt,
+        updatedAt,
+      });
+
+      router.back();
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const newErrors: FormErrors = {};
@@ -116,7 +133,7 @@ export default function NoteForm() {
   };
 
   const handleCancel = () => {
-    router.push('/notes/filter/all');
+    router.back();
   };
   return (
     <form className={css.form} action={handleSubmit}>
@@ -125,7 +142,7 @@ export default function NoteForm() {
           Title
         </label>
         <input
-          defaultValue={draft?.title}
+          value={values.title}
           onChange={handleChange}
           className={css.input}
           type="text"
@@ -140,7 +157,7 @@ export default function NoteForm() {
           Content
         </label>
         <textarea
-          defaultValue={draft?.content}
+          value={values.content}
           onChange={handleChange}
           className={css.textarea}
           rows={8}
@@ -159,7 +176,7 @@ export default function NoteForm() {
           id={`${fieldId}-tag`}
           className={css.select}
           onChange={handleChange}
-          defaultValue={draft?.tag}
+          value={values.tag}
         >
           <option value="" disabled>
             Select tag

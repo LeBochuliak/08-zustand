@@ -10,8 +10,6 @@ import { Toaster } from 'react-hot-toast';
 import SearchBox from '../../../../components/SearchBox/SearchBox';
 import Pagination from '../../../../components/Pagination/Pagination';
 import NoteList from '../../../../components/NoteList/NoteList';
-import Modal from '../../../../components/Modal/Modal';
-import NoteForm from '../../../../components/NoteForm/NoteForm';
 import Link from 'next/link';
 
 interface NotesClientProps {
@@ -21,15 +19,10 @@ interface NotesClientProps {
 export default function NotesClient({ tag }: NotesClientProps) {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentTag, setCurrentTag] = useState(tag);
-
-  const closeModal = () => setIsModalOpen(false);
-  const openModal = () => setIsModalOpen(true);
 
   const { data, isSuccess } = useQuery({
-    queryKey: ['notes', page, search, currentTag],
-    queryFn: () => fetchNotes({ search, page, currentTag }),
+    queryKey: ['notes', page, search, tag],
+    queryFn: () => fetchNotes({ search, page, tag }),
     placeholderData: keepPreviousData,
   });
 
@@ -46,7 +39,6 @@ export default function NotesClient({ tag }: NotesClientProps) {
 
   const handleSearchBox = useDebouncedCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCurrentTag(undefined);
       setPage(1);
       setSearch(e.target.value);
     },
@@ -66,15 +58,10 @@ export default function NotesClient({ tag }: NotesClientProps) {
           />
         )}
         <Link href={`/notes/action/create`} className={css.button}>
-          Craete note +
+          Create note +
         </Link>
       </div>
       {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          <NoteForm />
-        </Modal>
-      )}
     </div>
   );
 }
